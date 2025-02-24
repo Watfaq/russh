@@ -17,7 +17,7 @@ where
     RefMut(&'i mut Channel<S>),
 }
 
-impl<'i, S> AsMut<Channel<S>> for ChannelAsMut<'i, S>
+impl<S> AsMut<Channel<S>> for ChannelAsMut<'_, S>
 where
     S: From<(ChannelId, ChannelMsg)>,
 {

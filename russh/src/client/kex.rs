@@ -12,12 +12,12 @@ use ssh_key::{Mpint, PublicKey, Signature};
 use super::IncomingSshPacket;
 use crate::client::{Config, NewKeys};
 use crate::kex::dh::groups::DhGroup;
-use crate::kex::{KexAlgorithm, KexAlgorithmImplementor, KexCause, KexProgress, KEXES};
+use crate::kex::{KEXES, KexAlgorithm, KexAlgorithmImplementor, KexCause, KexProgress};
 use crate::keys::key::parse_public_key;
 use crate::negotiation::{Names, Select};
 use crate::session::Exchange;
 use crate::sshbuffer::PacketWriter;
-use crate::{msg, negotiation, strict_kex_violation, CryptoVec, Error, SshId};
+use crate::{CryptoVec, Error, SshId, msg, negotiation, strict_kex_violation};
 
 thread_local! {
     static HASH_BUFFER: RefCell<CryptoVec> = RefCell::new(CryptoVec::new());
@@ -190,12 +190,12 @@ impl ClientKex {
                 let mut r = &input.buffer[1..];
 
                 let prime = Mpint::decode(&mut r)?;
-                let gen = Mpint::decode(&mut r)?;
-                debug!("received gex group: prime={}, gen={}", prime, gen);
+                let r#gen = Mpint::decode(&mut r)?;
+                debug!("received gex group: prime={}, r#gen={}", prime, r#gen);
 
                 let group = DhGroup {
                     prime: prime.as_bytes().to_vec().into(),
-                    generator: gen.as_bytes().to_vec().into(),
+                    generator: r#gen.as_bytes().to_vec().into(),
                 };
 
                 if group.bit_size() < self.config.gex.min_group_size

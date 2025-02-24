@@ -5,11 +5,11 @@ use curve25519_dalek::scalar::Scalar;
 use log::debug;
 use ssh_encoding::{Encode, Writer};
 
-use super::{compute_keys, KexAlgorithm, KexAlgorithmImplementor, KexType};
+use super::{KexAlgorithm, KexAlgorithmImplementor, KexType, compute_keys};
 use crate::kex::encode_mpint;
 use crate::mac::{self};
 use crate::session::Exchange;
-use crate::{cipher, msg, CryptoVec};
+use crate::{CryptoVec, cipher, msg};
 
 pub struct Curve25519KexType {}
 

@@ -29,8 +29,8 @@ use curve25519::Curve25519KexType;
 use delegate::delegate;
 use dh::groups::DhGroup;
 use dh::{
-    DhGexSha1KexType, DhGexSha256KexType, DhGroup14Sha1KexType, DhGroup14Sha256KexType,
-    DhGroup16Sha512KexType, DhGroup1Sha1KexType,
+    DhGexSha1KexType, DhGexSha256KexType, DhGroup1Sha1KexType, DhGroup14Sha1KexType,
+    DhGroup14Sha256KexType, DhGroup16Sha512KexType,
 };
 use digest::Digest;
 use ecdh_nistp::{EcdhNistP256KexType, EcdhNistP384KexType, EcdhNistP521KexType};
@@ -49,7 +49,7 @@ use crate::client::GexParams;
 use crate::mac::{self, MACS};
 use crate::negotiation::Names;
 use crate::session::{Exchange, NewKeys};
-use crate::{cipher, CryptoVec, Error};
+use crate::{CryptoVec, Error, cipher};
 
 #[derive(Debug)]
 pub(crate) enum SessionKexState<K> {

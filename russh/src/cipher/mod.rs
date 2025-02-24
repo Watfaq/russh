@@ -31,9 +31,9 @@ use ssh_encoding::Encode;
 use tokio::io::{AsyncRead, AsyncReadExt};
 
 use self::cbc::CbcWrapper;
+use crate::Error;
 use crate::mac::MacAlgorithm;
 use crate::sshbuffer::SSHBuffer;
-use crate::Error;
 
 pub(crate) mod block;
 pub(crate) mod cbc;

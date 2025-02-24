@@ -297,7 +297,9 @@ pub enum Error {
     #[error(transparent)]
     Elapsed(#[from] tokio::time::error::Elapsed),
 
-    #[error("Violation detected during strict key exchange, message {message_type} at seq no {sequence_number}")]
+    #[error(
+        "Violation detected during strict key exchange, message {message_type} at seq no {sequence_number}"
+    )]
     StrictKeyExchangeViolation {
         message_type: u8,
         sequence_number: usize,

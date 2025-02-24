@@ -1,6 +1,6 @@
 use std::io;
 use std::pin::Pin;
-use std::task::{ready, Context, Poll};
+use std::task::{Context, Poll, ready};
 
 use tokio::io::AsyncRead;
 
@@ -31,7 +31,7 @@ where
     }
 }
 
-impl<'i, S> AsyncRead for ChannelRx<'i, S>
+impl<S> AsyncRead for ChannelRx<'_, S>
 where
     S: From<(ChannelId, ChannelMsg)>,
 {
@@ -90,12 +90,12 @@ where
     }
 }
 
-impl<'i, S> Drop for ChannelRx<'i, S>
+impl<S> Drop for ChannelRx<'_, S>
 where
     S: From<(ChannelId, ChannelMsg)>,
 {
     fn drop(&mut self) {
-        if let ChannelAsMut::Owned(ref mut channel) = &mut self.channel {
+        if let ChannelAsMut::Owned(channel) = &mut self.channel {
             let _ = channel
                 .sender
                 .try_send((channel.id, ChannelMsg::Close).into());

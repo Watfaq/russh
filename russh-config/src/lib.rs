@@ -221,7 +221,7 @@ impl SshConfigStrExt for &str {
 #[cfg(test)]
 mod tests {
     #![allow(clippy::expect_used)]
-    use crate::{parse, AddKeysToAgent, Config, SshConfigStrExt};
+    use crate::{AddKeysToAgent, Config, SshConfigStrExt, parse};
 
     #[test]
     fn strip_quotes() {

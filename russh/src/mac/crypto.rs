@@ -1,8 +1,8 @@
 use std::marker::PhantomData;
 
 use byteorder::{BigEndian, ByteOrder};
-use digest::typenum::Unsigned;
 use digest::KeyInit;
+use digest::typenum::Unsigned;
 use generic_array::{ArrayLength, GenericArray};
 use subtle::ConstantTimeEq;
 

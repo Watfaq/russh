@@ -526,7 +526,6 @@ mod channels {
             sh,
             |client| async move {
                 let ch = client.channel_open_session().await.unwrap();
-
                 let mut writer_1 = ch.make_writer();
                 let jh_1 = tokio::spawn(async move {
                     let buf = [1u8; 1024 * 64];

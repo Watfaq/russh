@@ -3,8 +3,8 @@ use std::io::Write;
 
 use data_encoding::{BASE64_MIME, HEXLOWER_PERMISSIVE};
 use pkcs1::DecodeRsaPrivateKey;
-use ssh_key::private::RsaKeypair;
 use ssh_key::PrivateKey;
+use ssh_key::private::RsaKeypair;
 
 use super::is_base64_char;
 use crate::keys::Error;

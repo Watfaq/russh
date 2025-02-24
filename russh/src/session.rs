@@ -29,7 +29,7 @@ use crate::kex::dh::groups::DhGroup;
 use crate::kex::{KexAlgorithm, KexAlgorithmImplementor};
 use crate::sshbuffer::PacketWriter;
 use crate::{
-    auth, cipher, mac, msg, negotiation, ChannelId, ChannelParams, CryptoVec, Disconnect, Limits,
+    ChannelId, ChannelParams, CryptoVec, Disconnect, Limits, auth, cipher, mac, msg, negotiation,
 };
 
 #[derive(Debug)]
@@ -246,8 +246,7 @@ impl Encrypted {
         if let Some(channel) = self.channels.get_mut(&channel) {
             trace!(
                 "adjust_window_size, channel = {}, size = {},",
-                channel.sender_channel,
-                target
+                channel.sender_channel, target
             );
             // Ignore extra data.
             // https://tools.ietf.org/html/rfc4254#section-5.2

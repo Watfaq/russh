@@ -5,7 +5,7 @@ use rand::RngCore;
 use rand_core::OsRng;
 use russh::keys::PrivateKeyWithHashAlg;
 use russh::server::{self, Auth, Msg, Server as _, Session};
-use russh::{client, Channel};
+use russh::{Channel, client};
 use ssh_key::PrivateKey;
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
 

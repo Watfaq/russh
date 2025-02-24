@@ -1,8 +1,8 @@
 use ssh_key::{Certificate, HashAlg, PublicKey};
 #[cfg(not(target_arch = "wasm32"))]
 use {
-    crate::helpers::AlgorithmExt, ssh_encoding::Decode, ssh_key::public::KeyData,
-    ssh_key::Algorithm,
+    crate::helpers::AlgorithmExt, ssh_encoding::Decode, ssh_key::Algorithm,
+    ssh_key::public::KeyData,
 };
 
 use crate::keys::key::PrivateKeyWithHashAlg;

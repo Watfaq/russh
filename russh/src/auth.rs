@@ -22,9 +22,9 @@ use ssh_key::{Certificate, HashAlg, PrivateKey};
 use thiserror::Error;
 use tokio::io::{AsyncRead, AsyncWrite};
 
+use crate::CryptoVec;
 use crate::helpers::NameList;
 use crate::keys::PrivateKeyWithHashAlg;
-use crate::CryptoVec;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum MethodKind {

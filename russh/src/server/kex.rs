@@ -10,9 +10,9 @@ use ssh_key::Algorithm;
 use super::*;
 use crate::helpers::sign_with_hash_alg;
 use crate::kex::dh::biguint_to_mpint;
-use crate::kex::{KexAlgorithm, KexAlgorithmImplementor, KexCause, KEXES};
+use crate::kex::{KEXES, KexAlgorithm, KexAlgorithmImplementor, KexCause};
 use crate::keys::key::PrivateKeyWithHashAlg;
-use crate::negotiation::{is_key_compatible_with_algo, Names, Select};
+use crate::negotiation::{Names, Select, is_key_compatible_with_algo};
 use crate::{msg, negotiation};
 
 thread_local! {
@@ -176,7 +176,9 @@ impl ServerKex {
                 debug!("client requests a gex group: {:?}", gex_params);
 
                 let Some(dh_group) = handler.lookup_dh_gex_group(&gex_params).await? else {
-                    debug!("server::Handler impl did not find a matching DH group (is lookup_dh_gex_group implemented?)");
+                    debug!(
+                        "server::Handler impl did not find a matching DH group (is lookup_dh_gex_group implemented?)"
+                    );
                     return Err(Error::Kex)?;
                 };
 

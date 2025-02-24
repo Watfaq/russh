@@ -1,7 +1,7 @@
 use ssh_encoding::{Decode, Encode, Reader};
 
 use crate::helpers::map_err;
-use crate::{msg, CryptoVec};
+use crate::{CryptoVec, msg};
 
 #[derive(Debug)]
 pub struct OpenChannelMessage {

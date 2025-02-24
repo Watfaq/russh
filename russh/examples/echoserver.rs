@@ -43,7 +43,7 @@ struct Server {
 impl Server {
     async fn post(&mut self, data: CryptoVec) {
         let mut clients = self.clients.lock().await;
-        for (id, (channel, ref mut s)) in clients.iter_mut() {
+        for (id, (channel, s)) in clients.iter_mut() {
             if *id != self.id {
                 let _ = s.data(*channel, data.clone()).await;
             }

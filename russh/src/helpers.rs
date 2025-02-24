@@ -1,8 +1,8 @@
 use std::fmt::Debug;
 
 use ssh_encoding::{Decode, Encode};
-use ssh_key::private::KeypairData;
 use ssh_key::Algorithm;
+use ssh_key::private::KeypairData;
 
 #[doc(hidden)]
 pub trait EncodedExt {

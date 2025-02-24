@@ -26,13 +26,13 @@ use super::IncomingSshPacket;
 use crate::auth::AuthRequest;
 use crate::cert::PublicKeyOrCertificate;
 use crate::client::{Handler, Msg, Prompt, Reply, Session};
-use crate::helpers::{map_err, sign_with_hash_alg, AlgorithmExt, EncodedExt, NameList};
+use crate::helpers::{AlgorithmExt, EncodedExt, NameList, map_err, sign_with_hash_alg};
 use crate::keys::key::parse_public_key;
 use crate::parsing::{ChannelOpenConfirmation, ChannelType, OpenChannelMessage};
 use crate::session::{Encrypted, EncryptedState, GlobalRequestResponse};
 use crate::{
-    auth, msg, Channel, ChannelId, ChannelMsg, ChannelOpenFailure, ChannelParams, CryptoVec, Error,
-    MethodSet, Sig,
+    Channel, ChannelId, ChannelMsg, ChannelOpenFailure, ChannelParams, CryptoVec, Error, MethodSet,
+    Sig, auth, msg,
 };
 
 thread_local! {
@@ -186,7 +186,7 @@ impl Session {
                                 let responses = loop {
                                     match self.receiver.recv().await {
                                         Some(Msg::AuthInfoResponse { responses }) => {
-                                            break responses
+                                            break responses;
                                         }
                                         _ => {}
                                     }
@@ -967,7 +967,7 @@ impl Encrypted {
                     self.write.extend(&buffer[i0..]);
                 })
             }
-            auth::Method::OpenSshCertificate { ref key, ref cert } => {
+            auth::Method::OpenSshCertificate { key, cert } => {
                 let i0 = self.client_make_to_sign(
                     user,
                     &PublicKeyOrCertificate::Certificate(cert.clone()),

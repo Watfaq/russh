@@ -6,13 +6,13 @@ use kex::ServerKex;
 use log::debug;
 use negotiation::parse_kex_algo_list;
 use tokio::io::{AsyncRead, AsyncWrite, AsyncWriteExt};
-use tokio::sync::mpsc::{channel, Receiver, Sender};
+use tokio::sync::mpsc::{Receiver, Sender, channel};
 use tokio::sync::oneshot;
 
 use super::*;
 use crate::channels::{Channel, ChannelMsg, ChannelRef};
 use crate::helpers::NameList;
-use crate::kex::{KexCause, SessionKexState, EXTENSION_SUPPORT_AS_CLIENT};
+use crate::kex::{EXTENSION_SUPPORT_AS_CLIENT, KexCause, SessionKexState};
 use crate::{map_err, msg};
 
 /// A connected server session. This type is unique to a client.
@@ -369,7 +369,7 @@ impl Handle {
                     });
                 }
                 Some(ChannelMsg::OpenFailure(reason)) => {
-                    return Err(Error::ChannelOpenFailure(reason))
+                    return Err(Error::ChannelOpenFailure(reason));
                 }
                 None => {
                     return Err(Error::Disconnect);
@@ -1145,7 +1145,7 @@ impl Session {
             // If client sent a ext-info-c message in the kex list, it supports RFC 8308 extension negotiation.
             let mut key_extension_client = false;
             if let Some(e) = &enc.exchange {
-                let Some(mut r) = &e.client_kex_init.as_ref().get(17..) else {
+                let &Some(mut r) = &e.client_kex_init.as_ref().get(17..) else {
                     return Ok(());
                 };
                 if let Ok(kex_string) = String::decode(&mut r) {

@@ -67,9 +67,7 @@ impl Session {
         // If we've successfully read a packet.
         match (&mut enc.state, buf.split_first()) {
             (
-                EncryptedState::WaitingAuthServiceRequest {
-                    ref mut accepted, ..
-                },
+                EncryptedState::WaitingAuthServiceRequest { accepted, .. },
                 Some((&msg::SERVICE_REQUEST, mut r)),
             ) => {
                 let request = map_err!(String::decode(&mut r))?;
@@ -103,7 +101,7 @@ impl Session {
                 Ok(())
             }
             (
-                EncryptedState::WaitingAuthRequest(ref mut auth),
+                EncryptedState::WaitingAuthRequest(auth),
                 Some((&msg::USERAUTH_INFO_RESPONSE, mut r)),
             ) => {
                 let resp = read_userauth_info_response(
@@ -462,7 +460,7 @@ impl Encrypted {
             Err(e) => match e {
                 ssh_key::Error::AlgorithmUnknown
                 | ssh_key::Error::AlgorithmUnsupported { .. }
-                | ssh_key::Error::CertificateValidation { .. } => {
+                | ssh_key::Error::CertificateValidation => {
                     debug!("public key error: {e}");
                     reject_auth_request(until, &mut self.write, auth_request).await?;
                     Ok(())

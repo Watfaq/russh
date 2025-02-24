@@ -40,8 +40,8 @@ use std::num::Wrapping;
 use std::pin::Pin;
 use std::sync::Arc;
 
-use futures::task::{Context, Poll};
 use futures::Future;
+use futures::task::{Context, Poll};
 use kex::ClientKex;
 use log::{debug, error, trace};
 use russh_util::time::Instant;
@@ -50,13 +50,13 @@ use ssh_key::{Algorithm, Certificate, HashAlg, PrivateKey, PublicKey};
 use tokio::io::{AsyncRead, AsyncWrite, AsyncWriteExt, ReadHalf, WriteHalf};
 use tokio::pin;
 use tokio::sync::mpsc::{
-    channel, unbounded_channel, Receiver, Sender, UnboundedReceiver, UnboundedSender,
+    Receiver, Sender, UnboundedReceiver, UnboundedSender, channel, unbounded_channel,
 };
 use tokio::sync::oneshot;
 
 pub use crate::auth::AuthResult;
 use crate::channels::{Channel, ChannelMsg, ChannelRef, WindowSizeRef};
-use crate::cipher::{self, clear, OpeningKey};
+use crate::cipher::{self, OpeningKey, clear};
 use crate::kex::{KexCause, KexProgress, SessionKexState};
 use crate::keys::PrivateKeyWithHashAlg;
 use crate::msg::{is_kex_msg, validate_server_msg_strict_kex};
@@ -64,8 +64,8 @@ use crate::session::{CommonSession, EncryptedState, GlobalRequestResponse, NewKe
 use crate::ssh_read::SshRead;
 use crate::sshbuffer::{IncomingSshPacket, PacketWriter, SSHBuffer, SshId};
 use crate::{
-    auth, map_err, msg, negotiation, ChannelId, ChannelOpenFailure, CryptoVec, Disconnect, Error,
-    Limits, MethodSet, Sig,
+    ChannelId, ChannelOpenFailure, CryptoVec, Disconnect, Error, Limits, MethodSet, Sig, auth,
+    map_err, msg, negotiation,
 };
 
 mod encrypted;
@@ -355,7 +355,7 @@ impl<H: Handler> Handle<H> {
                 None => {
                     return Ok(AuthResult::Failure {
                         remaining_methods: MethodSet::empty(),
-                    })
+                    });
                 }
                 _ => {}
             }
@@ -445,7 +445,7 @@ impl<H: Handler> Handle<H> {
                 None => {
                     return Ok(AuthResult::Failure {
                         remaining_methods: MethodSet::empty(),
-                    })
+                    });
                 }
                 _ => {}
             }

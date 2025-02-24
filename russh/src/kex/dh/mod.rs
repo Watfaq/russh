@@ -10,11 +10,11 @@ use sha1::Sha1;
 use sha2::{Sha256, Sha512};
 use ssh_encoding::{Decode, Encode, Reader, Writer};
 
-use self::groups::{DhGroup, DH_GROUP1, DH_GROUP14, DH_GROUP16};
-use super::{compute_keys, KexAlgorithm, KexAlgorithmImplementor, KexType};
+use self::groups::{DH_GROUP1, DH_GROUP14, DH_GROUP16, DhGroup};
+use super::{KexAlgorithm, KexAlgorithmImplementor, KexType, compute_keys};
 use crate::client::GexParams;
 use crate::session::Exchange;
-use crate::{cipher, mac, msg, CryptoVec, Error};
+use crate::{CryptoVec, Error, cipher, mac, msg};
 
 pub(crate) struct DhGexSha1KexType {}
 
